@@ -10,7 +10,8 @@ body {
 .stopwatch {
   display: flex;
   justify-content: center;
-  box-sizing: border-box;
+  position: absolute;
+  top: 9vmin;
   height: $watch-size;
   width: $watch-size;
   border-radius: 50%;
@@ -18,7 +19,6 @@ body {
 
   &__center-dot {
     position: absolute;
-    order: -1;
     align-self: center;
     width: $center-dot-size;
     height: $center-dot-size;
@@ -30,10 +30,8 @@ body {
     0% {
       transform: rotate(0deg);
     }
-    50%{
-      transform: rotate(180deg);
-    }
-    100%{
+
+    100% {
       transform: rotate(360deg);
     }
   }
@@ -44,12 +42,8 @@ body {
     width: $seconds-hand-width;
     height: $seconds-hand-height;
     background-color: $seconds-hand-color;
-    transform-origin: bottom center;
-    animation-name: clock;
-    animation-duration: 60s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
 
+    @include hand-animation(60s);
   }
 
   &__minutes-hand {
@@ -58,12 +52,15 @@ body {
     width: $minutes-hand-width;
     height: $minutes-hand-height;
     background-color: $minutes-hand-color;
-    transform-origin: bottom center;
-    rotate: 0deg;
-    animation-name: clock;
-    animation-duration: 3600s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+
+    @include hand-animation(3600s);
   }
 
+  &--speed-up .stopwatch__minutes-hand {
+    @include hand-animation(600s);
+  }
+
+  &--speed-up .stopwatch__seconds-hand {
+    @include hand-animation(10s);
+  }
 }

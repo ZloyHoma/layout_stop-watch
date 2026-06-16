@@ -8,3 +8,11 @@ $minutes-hand-width: 3vmin;
 $minutes-hand-height: 20vmin;
 $seconds-hand-width: 1.5vmin;
 $seconds-hand-height: 38vmin;
+
+@mixin hand-animation($duration) {
+  animation-name: clock;
+  animation-duration: $duration;
+  animation-timing-function: steps(60);
+  animation-iteration-count: infinite;
+  transform-origin: bottom center;
+}
