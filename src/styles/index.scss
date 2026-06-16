@@ -18,17 +18,15 @@ body {
   border-radius: 50%;
   border: 1vmin dotted $border-color;
 
-
   @keyframes clock {
     from {
-      transform: rotate(0deg);
+      transform: translateY(-50%) rotate(0deg);
     }
 
     to {
-      transform: rotate(360deg);
+      transform: translateY(-50%) rotate(360deg);
     }
   }
-
 
   &__center-dot {
     width: $center-dot-size;
@@ -41,7 +39,6 @@ body {
     transform: translate(-50%, -50%);
   }
 
-
   &__seconds-hand {
     width: $seconds-hand-width;
     height: $seconds-hand-height;
@@ -49,9 +46,9 @@ body {
     position: absolute;
     transform: translateY(-50%);
 
-
     @include hand-animation(60s);
-    animation-timing-function: linear
+
+    animation-timing-function: linear;
   }
 
   &__minutes-hand {
@@ -62,16 +59,19 @@ body {
     transform: translateY(-50%);
 
     @include hand-animation(3600s);
-    animation-timing-function: steps(60)
-  }
 
-  &--speed-up &__minutes-hand {
-    @include hand-animation(600s);
     animation-timing-function: steps(60);
   }
 
   &--speed-up &__seconds-hand {
     @include hand-animation(10s);
+
     animation-timing-function: linear;
+  }
+
+  &--speed-up &__minutes-hand {
+    @include hand-animation(600s);
+
+    animation-timing-function: steps(60);
   }
 }
