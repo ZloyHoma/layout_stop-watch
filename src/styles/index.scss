@@ -5,62 +5,73 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vmin;
 }
 
 .stopwatch {
   display: flex;
   justify-content: center;
-  position: absolute;
-  top: 9vmin;
+  align-items: center;
+  position: relative;
   height: $watch-size;
   width: $watch-size;
   border-radius: 50%;
   border: 1vmin dotted $border-color;
 
-  &__center-dot {
-    position: absolute;
-    align-self: center;
-    width: $center-dot-size;
-    height: $center-dot-size;
-    border-radius: 50%;
-    background-color: $center-dot-color;
-  }
 
   @keyframes clock {
-    0% {
+    from {
       transform: rotate(0deg);
     }
 
-    100% {
+    to {
       transform: rotate(360deg);
     }
   }
 
-  &__seconds-hand {
+
+  &__center-dot {
+    width: $center-dot-size;
+    height: $center-dot-size;
+    border-radius: 50%;
+    background-color: $center-dot-color;
     position: absolute;
-    top: 2vmin;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+
+  &__seconds-hand {
     width: $seconds-hand-width;
     height: $seconds-hand-height;
     background-color: $seconds-hand-color;
+    position: absolute;
+    transform: translateY(-50%);
+
 
     @include hand-animation(60s);
+    animation-timing-function: linear
   }
 
   &__minutes-hand {
-    position: absolute;
-    top: 20vmin;
     width: $minutes-hand-width;
     height: $minutes-hand-height;
     background-color: $minutes-hand-color;
+    position: absolute;
+    transform: translateY(-50%);
 
     @include hand-animation(3600s);
+    animation-timing-function: steps(60)
   }
 
-  &--speed-up .stopwatch__minutes-hand {
+  &--speed-up &__minutes-hand {
     @include hand-animation(600s);
+    animation-timing-function: steps(60);
   }
 
-  &--speed-up .stopwatch__seconds-hand {
+  &--speed-up &__seconds-hand {
     @include hand-animation(10s);
+    animation-timing-function: linear;
   }
 }
